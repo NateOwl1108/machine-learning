@@ -177,3 +177,20 @@ if test__3 == True:
   print(A.elements)
   assert A.elements == [[1, 0, 0],[0, 1, 0],[0, 0, 1]]
   print('passed')
+
+test__4 = True
+if test__4 == True:
+  A = Matrix([[0, 1, 2],
+                [3, 6, 9],
+                [2, 6, 8]])
+  print('testing rref')
+  print(A.rref().elements)
+  assert A.rref().elements == [[1, 0, 0],[0, 1, 0],[0, 0, 1]]
+  print('Passed')
+  B = Matrix([[0, 0, -4, 0],
+                [0, 0, 0.3, 0],
+                [0, 2, 1, 0]])
+  print('testing rref')
+  print(B.rref().elements)
+  assert B.rref().elements == [[0, 1, 0, 0],[0, 0, 1, 0],[0, 0, 0, 0]]
+  print('passed')
