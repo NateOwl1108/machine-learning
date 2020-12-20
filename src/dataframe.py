@@ -11,6 +11,16 @@ class DataFrame():
         output_array[num_index].append(self.data_dict[key][num_index])
     return output_array
 
+  @classmethod
+  def from_array(cls,arr, columns):
+    data_dict ={}
+    for col_index in range(len(arr[0])):
+      data_dict[columns[col_index]] = []
+      for row_index in range(len(arr)):
+        data_dict[columns[col_index]].append(arr[row_index][col_index])
+    return DataFrame(data_dict,columns)
+
+
   def select_columns(self, columns):
     output_dict = {}
     index = 0
