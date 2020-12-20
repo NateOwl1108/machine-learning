@@ -55,3 +55,17 @@ assert df2.data_dict == {
     'John': [14, 7, 0, 14],
     'Sarah': [3, 1, 4, 0]
 }
+
+columns = ['firstname', 'lastname', 'age']
+arr = [['Kevin', 'Fray', 5],
+           ['Charles', 'Trapp', 17],
+           ['Anna', 'Smith', 13],
+           ['Sylvia', 'Mendez', 9]]
+df = DataFrame.from_array(arr, columns)
+
+
+'''df.select_rows_where(
+    lambda row: len(row['firstname']) >= len(row['lastname'])
+                and row['age'] > 10
+    ).to_array()
+[['Charles', 'Trapp', 17]]'''

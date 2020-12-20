@@ -42,3 +42,12 @@ class DataFrame():
     for index in range(len(self.data_dict[column])):
       new_dict[column][index] = function(self.data_dict[column][index])
     return DataFrame(new_dict, self.columns)
+  
+  def convert_row_from_array_to_dict(self, row):
+    row_dict = {}
+    for index in range(len(row)):
+      row_dict[self.columns[index]] = row[index]
+    return row_dict
+
+  def select_rows_where(self,function):
+    
