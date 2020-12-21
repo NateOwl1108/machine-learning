@@ -64,8 +64,7 @@ arr = [['Kevin', 'Fray', 5],
 df = DataFrame.from_array(arr, columns)
 
 
-'''df.select_rows_where(
+assert df.select_rows_where(
     lambda row: len(row['firstname']) >= len(row['lastname'])
                 and row['age'] > 10
-    ).to_array()
-[['Charles', 'Trapp', 17]]'''
+    ).to_array() == [['Charles', 'Trapp', 17]]

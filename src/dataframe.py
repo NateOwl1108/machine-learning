@@ -50,4 +50,16 @@ class DataFrame():
     return row_dict
 
   def select_rows_where(self,function):
-    
+    correct_rows = []
+    new_dict = {}
+    for key in self.columns:
+      new_dict[key] = []
+    for row_index in range(len(self.columns)):
+      row = [] 
+      for key in self.columns:
+        row.append(self.data_dict[key][row_index])
+      row_dict = self.convert_row_from_array_to_dict(row)
+      if function(row_dict) == True:
+        for key in self.columns: 
+          new_dict[key].append(row_dict[key])
+    return DataFrame(new_dict, self.columns)
