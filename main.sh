@@ -1,1 +1,1 @@
-python tests/test_dataframe.py
+python tests/test_linear_regressor.py
