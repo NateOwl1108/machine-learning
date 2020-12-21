@@ -22,6 +22,4 @@ assert coefficients == [0.01667, 0.15] # meaning that the model is progress = 0.
 # these coefficients are rounded, but you should not round except for
 # in your assert statement
 
-
-
 assert round(regressor.predict({'hours worked': 4}),5) == 0.61667
