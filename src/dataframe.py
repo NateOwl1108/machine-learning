@@ -63,3 +63,30 @@ class DataFrame():
         for key in self.columns: 
           new_dict[key].append(row_dict[key])
     return DataFrame(new_dict, self.columns)
+
+  def order_by(self,column, ascending):
+    value_dict = {}
+    for index in range(len(self.data_dict[column])):
+      value_dict[self.data_dict[column][index]] = []
+    for index in range(len(self.data_dict[column])):
+      for key in self.columns:
+        value_dict[self.data_dict[column][index]].append(self.data_dict[key][index])
+    sorted_list = list(self.data_dict[column])
+    sorted_list.sort()
+    if ascending == False:
+      sorted_list = sorted_list[::-1]
+    sorted_value_dict = {}
+    for index in range(len(sorted_list)):
+      sorted_value_dict[sorted_list[index]] = value_dict[sorted_list[index]]
+  
+    return_dict = {}
+    for index in range(len(self.columns)):
+      key = self.columns[index]
+      return_dict[key] = []
+      for value in sorted_value_dict:
+        return_dict[key].append(sorted_value_dict[value][index])
+
+    return DataFrame(return_dict, self.columns)
+         
+      
+        
