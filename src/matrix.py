@@ -72,13 +72,13 @@ class Matrix():
     def __matmul__(self,matrix):
         new_matrix = [[0 for _ in range(matrix.num_cols)] for _ in range(self.num_rows)] 
         for row_index in range(self.num_rows): 
+          row=self.elements[row_index]
           for col_index in range(matrix.num_cols): 
-            row=self.elements[row_index]
             col=[matrix.elements[k][col_index] for k in range(self.num_cols)]
             dot_product = 0
             for i in range(len(row)):
-                dot_product += row[i] * col[i]
-            new_matrix[row_index][col_index] = dot_product
+                dot_product += round(row[i] * col[i],6)
+            new_matrix[row_index][col_index] =dot_product
 
         return Matrix(new_matrix)
 
@@ -196,6 +196,7 @@ class Matrix():
           if pivot_row != -1:
             if pivot_row != row_index:
               self.elements[pivot_row] , self.elements[row_index] = self.elements[row_index] , self.elements[pivot_row]
+
             self.normalize_row(row_index)
             self.clear_above(row_index)
             self.clear_below(row_index)
@@ -229,43 +230,25 @@ class Matrix():
           new_matrix[row_index].append(self.elements[row_index][col_index])
       
       return Matrix(new_matrix)
-
-    def two_by_two_inverse(self):
-      determinant = self.cofactor_method_determinant()
-      determinant = float(round((1/determinant),9))
-      previous_element_1 = self.elements[0][0]
-      previous_element_2 = self.elements[1][1]
-      self.elements[0][0] = determinant * previous_element_2
-      self.elements[1][1] = determinant * previous_element_1
-      previous_element_1 = self.elements[1][0]
-      previous_element_2 = self.elements[0][1]
-      self.elements[1][0] = -determinant * previous_element_2
-      self.elements[0][1] = -determinant * previous_element_1
-      return Matrix(self.elements)
       
     def inverse(self):
       if self.num_rows != self.num_cols:
         return 'Error: cannot invert a non-square matrix'
-      else:  
+      elif self.cofactor_method_determinant == 0:
+        return 'Error: cannot invert a singular matrix'
+      else:
         identity_matrix = [[0 for _ in range(self.num_rows)] for _ in range(self.num_rows)]
-
+        copy_matrix = Matrix(self.elements)
         for i in range(self.num_rows):
           identity_matrix[i][i] = 1
-
-        inverse_matrix = [[] for _ in range(self.num_rows)]
         for row_index in range(self.num_rows):
           for col_index in range(self.num_cols):
-            self.elements[row_index].append(identity_matrix[row_index][col_index])
-        previous_num_cols = self.num_cols
-        self.num_cols = self.num_cols * 2
-        if self.rref() != 'Singular Matrix':
-          self.rref()
-          for row_index in range(self.num_rows):
-            for col_index in range(previous_num_cols, self.num_cols):
-              inverse_matrix[row_index].append(self.elements[row_index][col_index])
-        else:
-          return 'Error: cannot invert a singular matrix'
-
+            copy_matrix.elements[row_index].append(identity_matrix[row_index][col_index])
+        copy_matrix = Matrix(copy_matrix.elements)
+        copy_matrix.rref()
+        inverse_matrix = []
+        for row_index in range(self.num_rows):
+            inverse_matrix.append(copy_matrix.elements[row_index][self.num_cols:])
         return Matrix(inverse_matrix)
 
     def cofactor_method_determinant(self):
