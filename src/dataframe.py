@@ -87,6 +87,17 @@ class DataFrame():
         return_dict[key].append(sorted_value_dict[value][index])
 
     return DataFrame(return_dict, self.columns)
-         
+    
+  def create_interaction_terms(self, column_1_name, column_2_name):
+    value_array = self.to_array()
+    column_1 = self.data_dict[column_1_name]
+    column_2 = self.data_dict[column_2_name]
+    for index in range(len(value_array)):
+      value_array[index].append(column_1[index]*column_2[index])
+    new_column = str(column_1_name) + " * "+ str(column_2_name)
+    columns = self.columns
+    columns.append(new_column)
+    return DataFrame.from_array(value_array, columns)
+    
       
         
