@@ -18,12 +18,17 @@ class LinearRegressor():
     matrix = tall_matrix.transpose().matrix_multiply(tall_matrix)
     matrix = matrix.inverse() @ tall_matrix.transpose()
     matrix = matrix @ Matrix(dependent_matrix)
-    self.coefficients = {'constant':matrix.elements[0][0]}
-    for index in range(len(dataframe.columns) -1):
-      self.coefficients[dataframe.columns[index]] = matrix.elements[index+ 1][0]
+    
+    self.coefficients = {'constant':round(matrix.elements[0][0],5)} 
+    columns = dataframe.columns
+    columns.remove(dependent_variable)
+   
+    for index in range(len(columns)):
+      self.coefficients[columns[index]] = round(matrix.elements[index+1][0],5)
 
   def predict(self, mini_dict):
     prediction = self.coefficients['constant']
+  
     for key in mini_dict:
       prediction += self.coefficients[key] * mini_dict[key]
     return prediction
