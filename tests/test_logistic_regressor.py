@@ -13,5 +13,4 @@ df = DataFrame.from_array(
 )
 
 log_reg = LogisticRegressor(df, dependent_variable = 'y')
-log_reg.predict({'x': 5})
-#0.777
+assert round(log_reg.predict({'x': 5}),3) == 0.777

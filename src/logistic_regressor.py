@@ -4,11 +4,11 @@ from linear_regressor import LinearRegressor
 import math
 
 class LogisticRegressor():
-  def __init__(self, dataframe, dependent_variable):
-    
+  def __init__(self, dataframe, dependent_variable, upperbound):
+    self.upperbound = upperbound
     self.dependent_variable = dependent_variable
     dependent_variable_column = dataframe.columns.index(dependent_variable)
-    dependent_list = [math.log(1/value -1) for value in dataframe.data_dict[dependent_variable]]
+    dependent_list = [math.log(self.upperbound/value -1) for value in dataframe.data_dict[dependent_variable]]
     dependent_transformed = dependent_variable + "_transfromed"
     new_columns = dataframe.columns
     new_columns[dependent_variable_column] = dependent_transformed
@@ -25,16 +25,11 @@ class LogisticRegressor():
     #linear regressor
     linear_regressor = LinearRegressor(transformed_datafame, dependent_transformed)
     self.coefficients = linear_regressor.coefficients
-    print(self.coefficients)
-
-
-    #self.coefficients = new_regressor.coefficients
-    
 
   def predict(self, mini_dict):
     transformed = self.coefficients['constant']
   
     for key in mini_dict:
       transformed += self.coefficients[key] * mini_dict[key]
-    prediction = 1/(1 + math.exp(transformed) )
+    prediction = self.upperbound/(1 + math.exp(transformed) )
     return prediction
