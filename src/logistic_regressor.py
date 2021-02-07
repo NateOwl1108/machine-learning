@@ -4,7 +4,7 @@ from linear_regressor import LinearRegressor
 import math
 
 class LogisticRegressor():
-  def __init__(self, dataframe, dependent_variable, upperbound):
+  def __init__(self, dataframe,upperbound, dependent_variable):
     self.upperbound = upperbound
     self.dependent_variable = dependent_variable
     dependent_variable_column = dataframe.columns.index(dependent_variable)
@@ -25,10 +25,9 @@ class LogisticRegressor():
     #linear regressor
     linear_regressor = LinearRegressor(transformed_datafame, dependent_transformed)
     self.coefficients = linear_regressor.coefficients
-
   def predict(self, mini_dict):
     transformed = self.coefficients['constant']
-  
+    
     for key in mini_dict:
       transformed += self.coefficients[key] * mini_dict[key]
     prediction = self.upperbound/(1 + math.exp(transformed) )

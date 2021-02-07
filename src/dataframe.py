@@ -99,5 +99,26 @@ class DataFrame():
     columns.append(new_column)
     return DataFrame.from_array(value_array, columns)
     
-      
-        
+  def create_dummy_variables(self, column):
+    variables = []
+    for list_values in self.data_dict[column]:
+      for variable in list_values:
+        if variable not in variables:
+          variables.append(variable)
+    new_dict = {}
+    for key in self.data_dict:
+      if key == column:
+        for column_value in variables:
+          new_dict[column_value] = []
+      else:
+        new_dict[key] = self.data_dict[key]
+    for column_value in variables:
+      for index in range(len(self.data_dict[column])):
+        if column_value in self.data_dict[column][index]:
+          new_dict[column_value].append(1)
+        else:
+          new_dict[column_value].append(0)
+    columns = []
+    for column_value in new_dict:
+      columns.append(column_value)
+    return DataFrame(new_dict, columns)
