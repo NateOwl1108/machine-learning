@@ -17,7 +17,7 @@ if Test_1 == True:
   log_reg = LogisticRegressor(df, dependent_variable = 'y')
   assert round(log_reg.predict({'x': 5}),3) == 0.777
 
-Test_2 = True
+Test_2 =False
 if Test_2 == True:
     df = DataFrame.from_array(
     [[0, 0, 1, 0], 
@@ -37,3 +37,4 @@ if Test_2 == True:
     print(log_reg.predict({'beef': 5, 'pb': 0 , 'interactive':0}))
     print(log_reg.predict({'beef': 12, 'pb': 0 , 'interactive':0}))
     print(log_reg.predict({'beef': 5, 'pb': 5 , 'interactive':25}))
+

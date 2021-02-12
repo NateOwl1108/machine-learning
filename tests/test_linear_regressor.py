@@ -24,6 +24,8 @@ assert coefficients_value_list == [0.01667, 0.15]
 
 assert round(regressor.predict({'hours worked': 4}),5) == 0.61667
 '''
+#testing create create_interaction_terms
+'''
 problem_47 = True
 if problem_47 == True:
   df = DataFrame.from_array(
@@ -62,3 +64,4 @@ if problem_47 == True:
   print(prediction)
   prediction = new_regressor.predict({'beef':5, 'pb':5, 'beef * pb': 25})
   print(prediction)
+  '''

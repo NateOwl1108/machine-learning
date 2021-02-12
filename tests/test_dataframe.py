@@ -100,6 +100,7 @@ df = DataFrame.from_array(
 
 '''
 #testing create dummy variables
+'''
 df = DataFrame.from_array(
     [[0, 0, [],               1],
     [0, 0, ['mayo'],          1],
@@ -138,3 +139,5 @@ assert df.to_array() == [[0, 0, 0, 0, 1],
 [5, 5, 1, 0, 0],
 [5, 5, 0, 1, 0],
 [5, 5, 1, 1, 0]]
+'''
+
