@@ -85,19 +85,3 @@ print(logistic_regressor.predict({'beef': 0, 'pb': 4 , 'mayo': 1, 'jelly': 0, 'b
 print(logistic_regressor.predict({'beef': 8, 'pb': 4 , 'mayo': 1, 'jelly': 0, 'beef * pb': 32, 'beef * mayo': 8, 'beef * jelly': 0, 'pb * mayo': 4, 'pb * jelly': 0, 'mayo * jelly': 0}))
 print(logistic_regressor.predict({'beef': 8, 'pb': 0 , 'mayo': 1, 'jelly': 1, 'beef * pb': 0, 'beef * mayo': 8, 'beef * jelly': 8, 'pb * mayo': 0, 'pb * jelly': 0, 'mayo * jelly': 1}))'''
 
-# test 8 slices of beef + mayo
-observation = {'beef': 8, 'mayo': 1}
-assert round(linear_regressor.predict(observation),2) == 11.34
-assert round(logistic_regressor.predict(observation),2) == 9.72
-
-
-
-# test 4 tbsp of pb + 8 slices of beef + mayo
-observation = {'beef': 8, 'pb': 4, 'mayo': 1}
-assert round(linear_regressor.predict(observation),2) == 3.62
-assert round(logistic_regressor.predict(observation),2) == 0.77
-
-# test 8 slices of beef + mayo + jelly
-observation = {'beef': 8, 'mayo': 1, 'jelly': 1}
-assert round(linear_regressor.predict(observation),2) == 2.79
-assert round(logistic_regressor.predict(observation),2) == 0.79
