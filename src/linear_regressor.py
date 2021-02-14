@@ -28,7 +28,17 @@ class LinearRegressor():
 
   def predict(self, mini_dict):
     prediction = self.coefficients['constant']
-  
-    for key in mini_dict:
-      prediction += self.coefficients[key] * mini_dict[key]
+    zero_dict = {}
+    for key in self.coefficients:
+      if key == 'constant':
+        skip = True
+      elif key in mini_dict:
+        zero_dict[key] = mini_dict[key]
+      else:
+        zero_dict[key] = 0
+      for k
+    print(zero_dict)
+    for key in zero_dict:
+      print(prediction)
+      prediction += self.coefficients[key] * zero_dict[key]
     return prediction
