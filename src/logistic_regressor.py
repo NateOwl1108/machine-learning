@@ -28,15 +28,23 @@ class LogisticRegressor():
     self.coefficients = linear_regressor.coefficients
   def predict(self, mini_dict):
     transformed = self.coefficients['constant']
-    zero_dict = {}
+    independent_dict={}
     for key in self.coefficients:
       if key == 'constant':
         skip = True
       elif key in mini_dict:
-        zero_dict[key] = mini_dict[key]
+        independent_dict[key] = mini_dict[key]
+      elif '*' in key:
+        skip = True
       else:
-        zero_dict[key] = 0
-    for key in mini_dict:
-      transformed += self.coefficients[key] * mini_dict[key]
+        independent_dict[key] = 0
+    full_dict = independent_dict
+    key_list = [key for key in independent_dict]
+    for i in range(len(key_list)):
+      for j in range(i+1,len(key_list)):
+        full_dict[key_list[i] + ' * ' + key_list[j]] = full_dict[key_list[i]] * full_dict[key_list[j]]
+ 
+    for key in full_dict:
+      transformed += self.coefficients[key] * full_dict[key]
     prediction = self.upperbound/(1 + math.exp(transformed) )
     return prediction
