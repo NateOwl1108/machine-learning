@@ -1,3 +1,4 @@
+
 class DataFrame():
   def __init__(self, data_dict, column_order):
     self.data_dict = data_dict
@@ -122,3 +123,13 @@ class DataFrame():
     for column_value in new_dict:
       columns.append(column_value)
     return DataFrame(new_dict, columns)
+
+  def create_exponential(self, column, degree):
+    value_array = self.to_array()
+    column_value = self.data_dict[column]
+    for index in range(len(value_array)):
+      value_array[index].append(pow(column_value[index],degree))
+    new_column = column + '^' + str(degree)
+    columns = self.columns
+    columns.append(new_column)
+    return DataFrame.from_array(value_array, columns)
