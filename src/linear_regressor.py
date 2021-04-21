@@ -34,7 +34,7 @@ class LinearRegressor():
         skip = True
       elif key in mini_dict:
         independent_dict[key] = mini_dict[key]
-      elif '*' in key:
+      elif '^' in key:
         skip = True
       else:
         independent_dict[key] = 0
