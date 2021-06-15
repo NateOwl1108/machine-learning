@@ -1,4 +1,4 @@
-
+import math
 class DataFrame():
   def __init__(self, data_dict, column_order):
     self.data_dict = data_dict
@@ -30,6 +30,15 @@ class DataFrame():
       index += 1
     return DataFrame(output_dict, columns)
   
+  def del_column(self,column):
+    #deletes column from datadict and from columns
+    new_dict = dict(self.data_dict)
+    del new_dict[column]
+    new_columns = list(self.columns)
+    column_index = new_columns.index(column)
+    new_columns.pop(column_index)
+    return DataFrame(new_dict, new_columns)
+  
   def select_rows(self, rows):
     rows =rows[::-1]
     new_dict = self.data_dict
@@ -43,6 +52,14 @@ class DataFrame():
     for index in range(len(self.data_dict[column])):
       new_dict[column][index] = function(self.data_dict[column][index])
     return DataFrame(new_dict, self.columns)
+
+  def apply_add(self,column, function, new_column):
+    new_array = self.to_array()
+    for row in range(len(new_array)):
+      new_array[row].append(function(self.data_dict[column][row]))
+    new_columns = self.columns
+    new_columns.append(new_column)
+    return DataFrame.from_array(new_array, new_columns)
   
   def convert_row_from_array_to_dict(self, row):
     row_dict = {}

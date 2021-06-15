@@ -26,6 +26,7 @@ class LogisticRegressor():
     #linear regressor
     linear_regressor = LinearRegressor(transformed_datafame, dependent_transformed)
     self.coefficients = linear_regressor.coefficients
+
   def predict(self, mini_dict):
     transformed = self.coefficients['constant']
     independent_dict={}
@@ -48,3 +49,15 @@ class LogisticRegressor():
       transformed += self.coefficients[key] * full_dict[key]
     prediction = self.upperbound/(1 + math.exp(transformed) )
     return prediction
+  
+  def calc_rss(self): 
+    #- calculates the sum of squared error for the regressor
+
+  def set_coefficients(self, coeffs): 
+    self.coefficient = coeffs  
+    #allows you to manually set the coefficients of your regressor by passing in a dictionary of coefficients
+
+  def calc_gradient(self, delta): 
+    #- computes the partial derivatives of the RSS with respect to each coefficient
+
+  def gradient_descent(alpha, delta, num_steps, debug_mode=False): 
