@@ -150,3 +150,18 @@ class DataFrame():
     columns = self.columns
     columns.append(new_column)
     return DataFrame.from_array(value_array, columns)
+  
+  def query(self, selection_string):
+    #break up the string into the desired columns
+    select_columns = selection_string.split("SELECT ")
+    del select_columns[0]
+    select_columns = select_columns[0].split(", ")
+    # get wanted columns
+    new_data_dict = {}
+    new_columns = []
+    for column in select_columns:
+      new_data_dict[column] = self.data_dict[column]
+      new_columns.append(column)
+    #return DataFrame
+    return DataFrame(new_data_dict,new_columns)
+   
